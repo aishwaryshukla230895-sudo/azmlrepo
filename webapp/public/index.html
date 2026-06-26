@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraHealth AI // Real-time Clinical Diagnostics Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    <div class="glow-sphere sphere-3"></div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">✦</div>
+                <div>
+                    <h1>AuraHealth <span>AI</span></h1>
+                    <p class="subtitle">Azure Machine Learning Real-Time Inference Portal</p>
+                </div>
+            </div>
+            <div class="endpoint-status">
+                <span class="status-dot"></span>
+                <span class="status-text">Endpoint Connected // centralindia</span>
+            </div>
+        </header>
+
+        <section class="auth-card glass-panel" style="flex-direction: column; align-items: stretch; gap: 1rem;">
+            <div class="auth-header">
+                <div class="auth-icon">🔐</div>
+                <div>
+                    <h3>Azure ML API Authorization & Gateway Target</h3>
+                    <p>Paste your live Endpoint URL and Primary Key from Azure ML Studio > Consume tab.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div class="input-group" style="flex: 1; min-width: 320px;">
+                    <span style="font-size: 1.2rem; margin-right: 0.5rem;">🌐</span>
+                    <input type="text" id="endpoint-url-input" value="https://diabetes-28225164832.centralindia.inference.ml.azure.com/score" placeholder="https://diabetes-.../score">
+                </div>
+                <div class="input-group" style="flex: 1; min-width: 320px;">
+                    <span style="font-size: 1.2rem; margin-right: 0.5rem;">🔑</span>
+                    <input type="password" id="api-key-input" placeholder="Paste your Azure ML Primary Key here..." autocomplete="off">
+                    <button type="button" id="toggle-key-btn" class="icon-btn" title="Show/Hide Key">👁️</button>
+                </div>
+            </div>
+        </section>
+
+        <main class="dashboard-grid">
+            <!-- Left Column: Patient Vitals Form -->
+            <section class="vitals-panel glass-panel">
+                <div class="panel-header">
+                    <h2>🧬 Patient Vitals Profile</h2>
+                    <button type="button" id="load-sample-btn" class="pill-btn">⚡ Load Sample Vitals</button>
+                </div>
+                <p class="panel-desc">Adjust clinical indicators below to simulate live patient screening telemetry.</p>
+
+                <form id="vitals-form" class="vitals-grid">
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="pregnancies">Pregnancies</label>
+                            <span class="val-badge" id="pregnancies-val">2</span>
+                        </div>
+                        <input type="range" id="pregnancies" min="0" max="15" step="1" value="2">
+                        <div class="range-scale"><span>0</span><span>15</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="glucose">Plasma Glucose <span class="unit">(mg/dL)</span></label>
+                            <span class="val-badge highlight-blue" id="glucose-val">120</span>
+                        </div>
+                        <input type="range" id="glucose" min="50" max="300" step="1" value="120">
+                        <div class="range-scale"><span>50</span><span>Normal ≤ 140</span><span>300</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="bp">Diastolic Blood Pressure <span class="unit">(mmHg)</span></label>
+                            <span class="val-badge" id="bp-val">70</span>
+                        </div>
+                        <input type="range" id="bp" min="40" max="140" step="1" value="70">
+                        <div class="range-scale"><span>40</span><span>Normal ~80</span><span>140</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="skin">Triceps Skinfold <span class="unit">(mm)</span></label>
+                            <span class="val-badge" id="skin-val">20</span>
+                        </div>
+                        <input type="range" id="skin" min="5" max="80" step="1" value="20">
+                        <div class="range-scale"><span>5</span><span>80</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="insulin">Serum Insulin <span class="unit">(μU/ml)</span></label>
+                            <span class="val-badge" id="insulin-val">79</span>
+                        </div>
+                        <input type="range" id="insulin" min="15" max="300" step="1" value="79">
+                        <div class="range-scale"><span>15</span><span>300</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="bmi">Body Mass Index <span class="unit">(BMI)</span></label>
+                            <span class="val-badge highlight-blue" id="bmi-val">25.4</span>
+                        </div>
+                        <input type="range" id="bmi" min="15.0" max="60.0" step="0.1" value="25.4">
+                        <div class="range-scale"><span>15.0</span><span>Healthy 18.5-24.9</span><span>60.0</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="pedigree">Diabetes Pedigree Function</label>
+                            <span class="val-badge" id="pedigree-val">0.471</span>
+                        </div>
+                        <input type="range" id="pedigree" min="0.05" max="2.50" step="0.001" value="0.471">
+                        <div class="range-scale"><span>0.05</span><span>2.50</span></div>
+                    </div>
+
+                    <div class="vital-item">
+                        <div class="vital-label">
+                            <label for="age">Patient Age <span class="unit">(Years)</span></label>
+                            <span class="val-badge" id="age-val">33</span>
+                        </div>
+                        <input type="range" id="age" min="21" max="90" step="1" value="33">
+                        <div class="range-scale"><span>21</span><span>90</span></div>
+                    </div>
+
+                    <div class="form-action">
+                        <button type="submit" class="cta-btn pulse-glow" id="analyze-btn">
+                            <span class="btn-icon">⚡</span> Run Cloud Diagnostic Inference
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Column: Diagnostic Hub & Output -->
+            <section class="result-panel glass-panel">
+                <div class="panel-header">
+                    <h2>🔬 AI Diagnostic Hub</h2>
+                    <span class="model-tag">Scikit-Learn MLflow // Model v1</span>
+                </div>
+
+                <div class="hub-visual" id="idle-visual">
+                    <div class="radar-circle circle-a"></div>
+                    <div class="radar-circle circle-b"></div>
+                    <div class="radar-scanner"></div>
+                    <div class="hub-center-icon">✦</div>
+                    <p class="hub-hint">Awaiting patient vitals submission...</p>
+                </div>
+
+                <div class="loading-state hidden" id="loading-visual">
+                    <div class="loader-spinner"></div>
+                    <h4>Executing Cloud Telemetry...</h4>
+                    <p>Contacting Azure Managed Endpoint <code>diabetes-28223396014</code></p>
+                </div>
+
+                <div class="outcome-card hidden" id="outcome-visual">
+                    <div class="result-header">
+                        <span class="assessment-tag">Clinical Risk Assessment</span>
+                        <span class="timestamp" id="diag-time">13:20:00</span>
+                    </div>
+
+                    <div class="result-badge" id="result-badge">
+                        <div class="badge-icon" id="badge-icon">🛡️</div>
+                        <div class="badge-content">
+                            <h1 id="outcome-title">Non-Diabetic</h1>
+                            <p id="outcome-subtitle">Negative screening result [Prediction: 0]</p>
+                        </div>
+                    </div>
+
+                    <div class="clinical-notes glass-subpanel">
+                        <h4>📋 AI Diagnostic Explainer</h4>
+                        <p id="clinical-explainer">Patient biometric indicators remain within normal metabolic thresholds. No acute glycemic anomalies detected.</p>
+                    </div>
+
+                    <div class="meta-stats">
+                        <div class="meta-item">
+                            <span>Latency</span>
+                            <strong id="latency-val">142 ms</strong>
+                        </div>
+                        <div class="meta-item">
+                            <span>Compute SKU</span>
+                            <strong>Standard_D2as_v4</strong>
+                        </div>
+                        <div class="meta-item">
+                            <span>Monitoring Signal</span>
+                            <strong class="text-green">Active Data Collection</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-banner hidden" id="error-banner">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-text">
+                        <h4 id="error-title">Inference Request Failed</h4>
+                        <p id="error-desc">Please verify your API Key and network connectivity.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
