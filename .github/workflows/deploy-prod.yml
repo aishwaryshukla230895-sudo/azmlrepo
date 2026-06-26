@@ -28,7 +28,11 @@ jobs:
       - name: Install Azure SDK dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install azure-ai-ml azure-identity
+          pip install azure-ai-ml azure-identity scikit-learn pandas cloudpickle mlflow
+
+      - name: Regenerate fresh MLflow model artifacts
+        run: |
+          python -c "import pandas as pd, mlflow.sklearn, shutil; from sklearn.linear_model import LogisticRegression; from mlflow.models.signature import infer_signature; df = pd.read_csv('data/diabetes-data/diabetes.csv'); X = df[['Pregnancies','PlasmaGlucose','DiastolicBloodPressure','TricepsThickness','SerumInsulin','BMI','DiabetesPedigree','Age']]; y = df['Diabetic']; model = LogisticRegression(max_iter=1000).fit(X, y); sig = infer_signature(X, model.predict(X)); shutil.rmtree('model', ignore_errors=True); mlflow.sklearn.save_model(model, 'model')"
 
       - name: Sign in to Azure
         uses: azure/login@v2
